@@ -7,6 +7,8 @@ def get_word():
 
 
 def play(attempt, word, word_completion):
+    print(display_hangman(attempt))
+    wrong_letters = []
     while attempt > 0:
         word_completion = list(word_completion)
         answer = input('Введите одну букву: ').upper()
@@ -16,7 +18,9 @@ def play(attempt, word, word_completion):
         if answer not in word:
             print(display_hangman(attempt - 1))
             print(f'Нет такой буквы. Осталось попыток - {attempt - 1}')
+            wrong_letters.append(answer)
             attempt -= 1
+        print('В слове нет букв - ', *wrong_letters)
         for index, letter in enumerate(word):
             if answer == letter:
                 word_completion[index] = answer
@@ -32,8 +36,8 @@ def main():
     word = get_word()
     attempt = 6
     word_completion = '_' * len(word)
+    print('Добро пожаловать в угадайку слов!')
     print(f'Загадано слово {word_completion}')
-    print(display_hangman(attempt))
     play(attempt, word, word_completion)
 
 
